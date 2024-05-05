@@ -1,4 +1,4 @@
-# BookScope
+# MY_LIBRARY
 
 ¡Bienvenido/a a la mi libreria BookScope! Esta es una aplicación móvil desarrollada con React Native que te permite acceder a una base de datos de libros y realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar).
 
