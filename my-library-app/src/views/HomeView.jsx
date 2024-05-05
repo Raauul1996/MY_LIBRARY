@@ -1,18 +1,23 @@
-import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import React, { useContext } from 'react';
+import { View } from 'react-native';
 import StyledText from '../components/StyledText';
 import StyledButton from '../components/StyledButton';
 import { globalStyles } from '../styles/styles';
+import { useNavigation } from '@react-navigation/native';
+import { BooksDataContext } from '../context/context';
 
-const HomeView = ({ navigation }) => {
+const HomeView = () => {
+  const navigation = useNavigation();
+  const { getBooksData } = useContext(BooksDataContext);
 
   const introduction = `¡Bienvenido a BookScope, tu plataforma literaria definitiva! 
   Aquí, puedes encontrar tu próxima lectura favorita. Con BookScope, tienes la libertad de consultar, crear, modificar y eliminar libros según tus preferencias. 
-  Sea cual sea tu gusto, BookScope lo tiene cubierto. Además, puedes  modificar detalles de los libros existentes y eliminarlos. 
+  Sea cual sea tu gusto, BookScope lo tiene cubierto. Además, puedes modificar detalles de los libros existentes y eliminarlos. 
   Sumérgete en el mundo de la literatura con BookScope.`;
 
-  const navigateToBooksList = () => {
+  const navigateToBooksList = async () => {
     navigation.navigate('BooksList');
+    await getBooksData();
   };
 
   return (
@@ -23,6 +28,5 @@ const HomeView = ({ navigation }) => {
     </View>
   );
 };
-
 
 export default HomeView;

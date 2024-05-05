@@ -6,6 +6,7 @@ import StyledText from '../components/StyledText.jsx';
 import BookItem from '../components/BookItem.jsx';
 import { BooksDataContext } from '../context/context.js';
 import { globalStyles } from "../styles/styles.js";
+import StyledButton from "../components/StyledButton.jsx";
 
 const styles = StyleSheet.create({
   backButton: {
@@ -18,14 +19,19 @@ export default function BooksListView() {
   const { booksData } = useContext(BooksDataContext);
   const navigation = useNavigation();
 
-  const navigateToHome = () => {
+  const handleNavigateToHome = () => {
     navigation.navigate('Home');
   };
+  const handleNavigateToCreateBook = () => {
+    navigation.navigate('CreateBook')
+  }
+
+
 
   return (
     <View style={{ flex: 1 }}>
       <View style={globalStyles.headerContainer}>
-        <TouchableOpacity style={styles.backButton} onPress={navigateToHome}>
+        <TouchableOpacity style={styles.backButton} onPress={handleNavigateToHome}>
           <AntDesign name="arrowleft" size={24} color="black" />
         </TouchableOpacity>
         <Text style={globalStyles.headerTitle}>BookScope</Text>
@@ -35,15 +41,15 @@ export default function BooksListView() {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item: book, index }) => (
           <BookItem book={book}>
-            <StyledText style={styles.strong}>{book.id}</StyledText>
             <StyledText type="photo">{book.photo}</StyledText>
             <StyledText type="title">{book.title}</StyledText>
             <StyledText type="secondary">{book.author}</StyledText>
             {index === booksData.length - 1 && <View style={{ height: 100 }} />}
           </BookItem>
         )}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        
       />
+           <StyledButton title="Crea un nuevo Libro" onPress={handleNavigateToCreateBook} />
     </View>
   );
 }

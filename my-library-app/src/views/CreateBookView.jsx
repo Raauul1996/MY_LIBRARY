@@ -5,47 +5,47 @@ import { globalStyles } from "../styles/styles";
 import StyledText from "../components/StyledText";
 import StyledInput from "../components/StyledInput"; 
 import StyledButton from "../components/StyledButton";
-import updateBook from "../utils/updateBook";
+import createBook from "../utils/createBook";
 import { BooksDataContext } from "../context/context";
 
-const UpdateBookView = ({ route }) => {
-  const { book } = route.params;
+const CreateBookView = ({ route }) => {
   const navigation = useNavigation();
   const { getBooksData } = useContext(BooksDataContext);
 
-  const [title, setTitle] = useState(book.title);
-  const [author, setAuthor] = useState(book.author);
-  const [description, setDescription] = useState(book.description);
-  const [photo, setPhoto] = useState(book.photo);
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [description, setDescription] = useState('');
+  const [photo, setPhoto] = useState('');
 
-  const handleUpdateBook = async () => {
-    const updatedBook = {
+  const handleCreateBook = async () => {
+    const createdBook = {
       title: title,
       author: author,
       description: description,
       photo: photo,
     };
     try {
-      const success = await updateBook(book.id, updatedBook);
+      const success = await createBook(createdBook);
       if (success) {
         await getBooksData();
-        Alert.alert("¡El libro se ha actualizado correctamente!");
+        Alert.alert("¡El libro se ha creado correctamente!");
         navigation.goBack();
       } else {
-        Alert.alert("¡Error al actualizar el libro!");
+        Alert.alert("¡Error al crear el libro!");
       }
     } catch (error) {
-      console.error("Error updating the book", error);
+      console.error("Error creating the book", error);
     }
   };
 
   return (
-    <ScrollView contentContainerStyle={globalStyles.scrollContainer}>
-      <View style={globalStyles.container}>
-        <StyledText style={globalStyles.specificBookTitle}>
-          Actualizar Libro
-        </StyledText>
-        <StyledText style={globalStyles.secondaryText}>Título</StyledText>
+    <View style={globalStyles.generalContainer}>
+      <ScrollView contentContainerStyle={globalStyles.scrollContainer}>
+        <View style={globalStyles.container}>
+          <StyledText style={globalStyles.specificBookTitle}>
+            Crea tu Libro
+          </StyledText>
+          <StyledText style={globalStyles.secondaryText}>Título</StyledText>
           <StyledInput
             value={title}
             onChangeText={setTitle}
@@ -71,10 +71,11 @@ const UpdateBookView = ({ route }) => {
             onChangeText={setPhoto}
             required
           />
-        <StyledButton title="Guardar Cambios" onPress={handleUpdateBook} />
-      </View>
-    </ScrollView>
+          <StyledButton title="Guardar Libro" onPress={handleCreateBook} />
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
-export default UpdateBookView;
+export default CreateBookView;

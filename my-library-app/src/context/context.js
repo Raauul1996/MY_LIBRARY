@@ -1,12 +1,12 @@
-import { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import getBooks from '../utils/getBooks'
 
-const initialBooksState = {}
+const initialBooksState = []
 
 export const BooksDataContext = createContext(initialBooksState)
 
 export const BooksDataProvider = ({ children }) => {
-  const [booksData, setBooksData] = useState([])
+  const [booksData, setBooksData] = useState(initialBooksState)
   
   const getBooksData = async () => {
     const data = await getBooks()
@@ -15,11 +15,10 @@ export const BooksDataProvider = ({ children }) => {
 
   useEffect(() => {
     getBooksData();
-    console.log('CONTEXTO',booksData)
   }, [])
 
   return (
-    <BooksDataContext.Provider value={{ booksData, getBooksData }}>
+    <BooksDataContext.Provider value={{ booksData, getBooksData}}>
       {children}
     </BooksDataContext.Provider>
   )

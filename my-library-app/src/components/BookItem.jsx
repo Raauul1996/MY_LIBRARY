@@ -8,7 +8,7 @@ const BookItem = ({ book }) => {
   const navigation = useNavigation()
   
   const handleNavigateToBook = () => {
-    navigation.navigate('Book', { book })
+    navigation.navigate('Book', { bookId:book.id })
   }
 
   return (

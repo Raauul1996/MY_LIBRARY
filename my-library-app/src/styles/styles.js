@@ -1,27 +1,44 @@
 import { StyleSheet } from 'react-native';
 import { theme } from './theme';
+import Constants from 'expo-constants';
 
 export const globalStyles = StyleSheet.create({
   
+  generalContainer: {
+    width: '100%',
+    height: '100%',
+    flex: 1,
+    backgroundColor:theme.colors.background,
+    marginTop: Constants.statusBarHeight,
+  },
+
   homeContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
   },
+
+  scrollContainer: {
+    flex:0,
+    backgroundColor:theme.colors.background,
+    minHeight:'100%',
+    minWidth:'100%'
+  },
   container: {
     flex: 1,
     backgroundColor: theme.colors.background,
-    justifyContent: 'top',
+    justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingTop: 50,
+    paddingVertical: 50,
+    height:'auto',
   },
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
+    marginVertical: 15,
   },
   bookContainer: {
     flexDirection: 'row',
@@ -118,5 +135,15 @@ export const globalStyles = StyleSheet.create({
     borderRadius: 10,
   },
 
-
+  input: {
+    width: '100%',
+    height: 'auto',
+    backgroundColor: theme.background,
+    borderBottomColor: theme.border,
+    borderBottomWidth: 1,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    fontSize: 16,
+    color: theme.text,
+  }
 });
