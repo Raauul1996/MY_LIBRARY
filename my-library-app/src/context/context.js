@@ -7,10 +7,15 @@ export const BooksDataContext = createContext(initialBooksState)
 
 export const BooksDataProvider = ({ children }) => {
   const [booksData, setBooksData] = useState(initialBooksState)
+  const [colores, setColores] = useState('blue')
   
   const getBooksData = async () => {
     const data = await getBooks()
     setBooksData(data)
+  }
+
+  const changeColor = (color) => {
+  setColores(color);
   }
 
   useEffect(() => {
@@ -18,7 +23,7 @@ export const BooksDataProvider = ({ children }) => {
   }, [])
 
   return (
-    <BooksDataContext.Provider value={{ booksData, getBooksData}}>
+    <BooksDataContext.Provider value={{ booksData, getBooksData, changeColor, colores}}>
       {children}
     </BooksDataContext.Provider>
   )

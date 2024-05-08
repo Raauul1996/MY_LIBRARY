@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Text, View, Image, TouchableOpacity, Alert, ScrollView } from "react-native";
 import { globalStyles } from "../styles/styles";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from '@expo/vector-icons';
-import getBook from "../utils/getBook";
+import getOneBook from "../utils/getOneBook";
 import StyledText from "../components/StyledText";
 import deleteBook from "../utils/deleteBook";
 import { BooksDataContext } from "../context/context";
@@ -11,16 +11,17 @@ import { BooksDataContext } from "../context/context";
 export default function BookView ({ route }) {
     const { bookId } = route.params;
     const navigation = useNavigation();
+    const { booksData, getBooksData } = useContext(BooksDataContext);
     const [book, setBook] = useState(null);
 
-    const getBookData = async (id) => {
-        const data = await getBook(id);
+    const getOneBookData = async (id) => {
+        const data = await getOneBook(id);
         setBook(data);
     }
     
     useEffect(() => {
-        getBookData(bookId);
-    }, []);
+        getOneBookData(bookId);
+    }, [booksData]);
 
 
     const handleDeleteBook = async () => {
@@ -28,6 +29,7 @@ export default function BookView ({ route }) {
             const success = await deleteBook(bookId);
             if (success) {
                 Alert.alert('Book deleted successfully');
+                getBooksData();
                 navigation.goBack();
             } else {
                 Alert.alert('Book deletion failed');
