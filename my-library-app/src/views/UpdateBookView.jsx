@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { View, ScrollView, Alert } from "react-native";
+import { View, ScrollView, Alert, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { globalStyles } from "../styles/styles";
 import StyledText from "../components/StyledText";

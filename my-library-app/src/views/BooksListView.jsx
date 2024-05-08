@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TouchableOpacity, FlatList, View, StyleSheet, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
@@ -18,6 +18,11 @@ const styles = StyleSheet.create({
 export default function BooksListView() {
   const { booksData } = useContext(BooksDataContext);
   const navigation = useNavigation();
+  const [booksList, setBooksList] = useState(booksData);
+
+  useEffect(()=>{
+    setBooksList(booksData)
+  }, [booksData])
 
   const handleNavigateToHome = () => {
     navigation.navigate('Home');
@@ -37,14 +42,14 @@ export default function BooksListView() {
         <Text style={globalStyles.headerTitle}>BookScope</Text>
       </View>
       <FlatList
-        data={booksData}
+        data={booksList}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item: book, index }) => (
           <BookItem book={book}>
             <StyledText type="photo">{book.photo}</StyledText>
             <StyledText type="title">{book.title}</StyledText>
             <StyledText type="secondary">{book.author}</StyledText>
-            {index === booksData.length - 1 && <View style={{ height: 100 }} />}
+            {index === booksList.length - 1 && <View style={{ height: 100 }} />}
           </BookItem>
         )}
         
